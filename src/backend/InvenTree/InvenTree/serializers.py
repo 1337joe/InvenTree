@@ -864,14 +864,6 @@ class NotesFieldMixin:
     but available in a DETAIL serializer.
     """
 
-    def __init__(self, *args, **kwargs):
-        """Remove 'notes' field from list views."""
-        super().__init__(*args, **kwargs)
-
-        if hasattr(self, 'context'):
-            if view := self.context.get('view', None):
-                if issubclass(view.__class__, ListModelMixin):
-                    self.fields.pop('notes', None)
 
 
 class RemoteImageMixin(metaclass=serializers.SerializerMetaclass):

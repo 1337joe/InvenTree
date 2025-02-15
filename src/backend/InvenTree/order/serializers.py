@@ -128,25 +128,25 @@ class AbstractOrderSerializer(DataImportExportSerializerMixin, serializers.Seria
     reference = serializers.CharField(required=True)
 
     # Detail for point-of-contact field
-    contact_detail = ContactSerializer(source='contact', many=False, read_only=True)
+    contact_detail = ContactSerializer(source='contact', many=False, read_only=True, required=False, allow_null=True)
 
     # Detail for responsible field
     responsible_detail = OwnerSerializer(
-        source='responsible', read_only=True, many=False
+        source='responsible', read_only=True, many=False, required=False, allow_null=True
     )
 
     project_code_label = serializers.CharField(
-        source='project_code.code', read_only=True, label='Project Code Label'
+        source='project_code.code', read_only=True, label='Project Code Label', required=False, allow_null=True
     )
 
     # Detail for project code field
     project_code_detail = ProjectCodeSerializer(
-        source='project_code', read_only=True, many=False
+        source='project_code', read_only=True, many=False, required=False, allow_null=True
     )
 
     # Detail for address field
     address_detail = AddressBriefSerializer(
-        source='address', many=False, read_only=True
+        source='address', many=False, read_only=True, required=False, allow_null=True
     )
 
     # Boolean field indicating if this order is overdue (Note: must be annotated)
