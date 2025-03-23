@@ -35,8 +35,8 @@ import part.tasks
 import stock.models
 import users.models
 from build.status_codes import BuildStatusGroups
-from importer.mixins import DataImportExportSerializerMixin
 from importer.registry import register_importer
+from InvenTree.mixins import DataImportExportSerializerMixin
 from InvenTree.ready import isGeneratingSchema
 from InvenTree.tasks import offload_task
 from users.serializers import UserSerializer
@@ -1532,6 +1532,8 @@ class BomItemSerializer(
     """Serializer for BomItem object."""
 
     import_exclude_fields = ['validated', 'substitutes']
+
+    export_exclude_fields = ['substitutes']
 
     export_child_fields = [
         'sub_part_detail.name',
