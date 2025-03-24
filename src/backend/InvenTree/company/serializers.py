@@ -59,6 +59,10 @@ class CompanyBriefSerializer(InvenTreeModelSerializer):
 
     thumbnail = serializers.CharField(source='get_thumbnail_url', read_only=True)
 
+    currency = InvenTreeCurrencySerializer(
+        help_text=_('Default currency used for this company'), read_only=True
+    )
+
 
 @register_importer()
 class AddressSerializer(DataImportExportSerializerMixin, InvenTreeModelSerializer):
