@@ -1,5 +1,30 @@
 """Schema processing functions for cleaning up generated schema."""
 
+from common.currency import currency_code_mappings
+
+
+def postprocess_currency_enums(result, generator, request, public):
+    """Convert currency enums to string while leaving the richer help text that comes from processing choice field."""
+    currency_values = set()
+    for key, _name in currency_code_mappings():
+        currency_values.add(key)
+
+    schemas = result.get('components', {}).get('schemas', {})
+    for schema in schemas.values():
+        properties = schema.get('properties', {})
+        for field in properties:
+            values = properties.get(field)
+
+            # only act on properties with an enum type that contains the currency enum
+            if not currency_values.issubset(values.get('enum', [])):
+                continue
+
+            # remove currency enum attribute while maintaining description metadata
+            values.pop('enum')
+            values.pop('x-spec-enum-id')
+
+    return result
+
 
 def postprocess_required_nullable(result, generator, request, public):
     """Un-require nullable fields.

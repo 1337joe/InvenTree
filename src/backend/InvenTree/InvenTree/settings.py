@@ -1425,6 +1425,7 @@ SPECTACULAR_SETTINGS = {
     'SERVE_INCLUDE_SCHEMA': False,
     'SCHEMA_PATH_PREFIX': '/api/',
     'POSTPROCESSING_HOOKS': [
+        'InvenTree.schema.postprocess_currency_enums',
         'drf_spectacular.hooks.postprocess_schema_enums',
         'InvenTree.schema.postprocess_required_nullable',
     ],
